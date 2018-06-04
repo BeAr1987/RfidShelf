@@ -52,6 +52,10 @@ SdFile uploadFile;
 
 unsigned long lastRfidCheck;
 
+int volume;
+int volume_new;
+
+
 void setup() {
   // Seems to make flashing more reliable
   delay(100);
@@ -168,6 +172,7 @@ void loop() {
     lastRfidCheck = millis();
   }
 
+  handleVolume();
   server.handleClient();
 }
 
@@ -712,4 +717,14 @@ bool patchVS1053() {
 
   Serial.print(F("Number of bytes: ")); Serial.println(i);
   return true;
+}
+
+void handleVolume()
+{
+  volume_new = analogRead(0) / 4;
+  if(volume != volume_new && volume_new != 256)
+  {
+    volume = volume_new;
+    musicPlayer.setVolume(volume, volume);
+  }
 }
