@@ -642,7 +642,7 @@ void handleNotFound() {
       return;
     } else if (server.hasArg("ota")) {
       Serial.println(F("Starting OTA"));
-      t_httpUpdate_return ret = ESPhttpUpdate.update("http://download.naeveke.de/board/latest.bin");
+      t_httpUpdate_return ret = ESPhttpUpdate.update("http://freakzone.bplaced.net/RFIDshelf/latest.bin");
 
       switch (ret) {
         case HTTP_UPDATE_FAILED:
@@ -721,7 +721,7 @@ bool patchVS1053() {
 
 void handleVolume()
 {
-  volume_new = analogRead(0) / 4;
+  volume_new = analogRead(0) / 8; // Because changes in lower volume is not hearable
   if(volume != volume_new && volume_new != 256)
   {
     volume = volume_new;
